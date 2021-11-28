@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Create Subtitle", "Create Subtitle\Create Subtitle.csproj", "{DA98B5F0-3C53-4195-8D2C-B06481B8C2A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA98B5F0-3C53-4195-8D2C-B06481B8C2A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA98B5F0-3C53-4195-8D2C-B06481B8C2A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA98B5F0-3C53-4195-8D2C-B06481B8C2A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA98B5F0-3C53-4195-8D2C-B06481B8C2A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {074CD191-F7B1-433D-8C8D-2E60D8672FA7}
+	EndGlobalSection
+EndGlobal
