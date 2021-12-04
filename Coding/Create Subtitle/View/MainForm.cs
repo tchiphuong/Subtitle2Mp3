@@ -17,9 +17,14 @@ namespace Create_Subtitle.Form
 {
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+        Boolean tokenModify = false;
+        Boolean play = false;
+        SubtitleDto dto = new SubtitleDto();
         public MainForm()
         {
             InitializeComponent();
+
 
             this.dgvMain.RowClick += DgvMain_RowClick;
 
@@ -36,6 +41,8 @@ namespace Create_Subtitle.Form
             {
                 navigator.Buttons.EndUpdate();
             }
+            LoadToken();
+            LoadCombobox();
         }
 
         private void DgvMain_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
@@ -68,13 +75,13 @@ namespace Create_Subtitle.Form
             if (fileContent.Length <= 0)
                 return;
 
-            List<SrtContent> content = new List<SrtContent>();
+            List<SubtitleDto> content = new List<SubtitleDto>();
             var segment = 1;
             for (int item = 0; item < fileContent.Length; item++)
             {
                 if (segment.ToString() == fileContent[item])
                 {
-                    content.Add(new SrtContent
+                    content.Add(new SubtitleDto
                     {
                         Segment = segment.ToString(),
                         StartTime = fileContent[item + 1].Substring(0, fileContent[item + 1].LastIndexOf("-->")).Trim(),
@@ -91,7 +98,7 @@ namespace Create_Subtitle.Form
             BindData(content);
         }
 
-        private void BindData(List<SrtContent> list)
+        private void BindData(List<SubtitleDto> list)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("Segment", typeof(int));
@@ -111,9 +118,71 @@ namespace Create_Subtitle.Form
             this.dgcMain.DataSource = dt;
         }
 
-        private void tablePanel1_Paint(object sender, PaintEventArgs e)
+        private void LoadToken()
         {
+            this.txtToken.ReadOnly = true;
+            string token = "kkSwFaK15Za0cRbny9r2Dmquc9XlaE10";
+            this.txtToken.Text = token;
+        }
 
+        private void LoadCombobox()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Code", typeof(string));
+            dt.Columns.Add("Value", typeof(string));
+            dt.Rows.Add("banmai", "Ban Mai");
+            dt.Rows.Add("banmaiace", "Ban Mai (Ace)");
+            dt.Rows.Add("thuminh", "Thu Minh");
+            dt.Rows.Add("thuminhace", "Thu Minh (Ace)");
+            cboVoice.Properties.DataSource = dt;
+            cboVoice.Properties.DisplayMember = "Value";
+            cboVoice.Properties.ValueMember = "Code";
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            dto.Voice = cboVoice.EditValue.ToString();
+            dto.Token = this.txtToken.Text;
+        }
+
+        private void cboVoice_EditValueChanged(object sender, EventArgs e)
+        {
+            cboVoice.Properties.DisplayMember = "Value";
+            cboVoice.Properties.ValueMember = "Code";
+        }
+
+        private void btnToken_Click(object sender, EventArgs e)
+        {
+            if (tokenModify == false)
+            {
+                this.txtToken.ReadOnly = false;
+                tokenModify = true;
+                this.btnToken.ImageOptions.Image = global::Create_Subtitle.Properties.Resources.save_16;
+            }
+            else
+            {
+                this.txtToken.ReadOnly = true;
+                tokenModify = false;
+                this.btnToken.ImageOptions.Image = global::Create_Subtitle.Properties.Resources.edit_16;
+            }
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            if (play == false)
+            {
+                play = true;
+                this.btnPlay.Text = "Pause";
+                this.btnPlay.ImageOptions.Image = global::Create_Subtitle.Properties.Resources.pause_32;
+                this.btnPlay.Appearance.BackColor = System.Drawing.Color.MistyRose;
+            }
+            else
+            {
+                play = false;
+                this.btnPlay.Text = "Play";
+                this.btnPlay.ImageOptions.Image = global::Create_Subtitle.Properties.Resources.play_32;
+                this.btnPlay.Appearance.BackColor = System.Drawing.Color.White;
+            }
         }
     }
 }
